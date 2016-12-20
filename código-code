@@ -1,0 +1,91 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <locale.h>
+
+
+typedef struct Contas_Bancarias
+{
+	char nome[100];
+	int nif;
+	int Nconta;
+	float depositoInc;
+	float debito;
+	float credito;
+	float saldoFin;
+}ContasB;
+
+main()
+{
+	setlocale(LC_ALL, "Portuguese");//habilita a acentuação para o português
+	ContasB clientes[3];
+	char opc;
+	float debito;
+	int cli;
+	int codigo;
+	float credito;
+
+	/*Inserção dos Dados*/
+	printf("Quantas Contas Bancárias Pretende Criar : ? ");
+	/*Leitura dos dados introduzidos*/
+	scanf("%d", &cli);
+
+	/*Contagem dos Clientes Inseridos*/
+	for (int i = 0; i < cli; i++)
+	{
+		printf("Introduza o Número da Conta do %d Cliente : ", (i + 1));
+		scanf("%d", &clientes[i].Nconta);
+
+		printf("Introduza o Nome do %d Cliente : ", (i + 1));
+		scanf("%s", &clientes[i].nome);
+
+		printf("Introduza o NIF do %d Cliente : ", (i + 1));
+		scanf("%d", &clientes[i].nif);
+
+		printf("Qual será o Depósito Inicial do %d Cliente : ",(i + 1));
+		scanf("%f", &clientes[i].depositoInc);
+	}
+
+	printf("Que Operação pretende Efectuar? Débito (d) ou Crédito (c) : ?\n");
+	scanf("%s", &opc);
+
+	if (opc == 'D' || opc == 'd')
+	{
+		printf("Indique o Valor que pretende Débitar : \n");
+		scanf("%f", &debito);
+		
+		for (int j = 0; j < cli; j++)
+		{
+			printf("Indique o Número da conta em que pretende efectuar o Débito : \n");
+			scanf("%d", &codigo);
+
+			float saldoFin = clientes[j].depositoInc - clientes[j].debito;
+
+			printf("Titular da conta : %s \n", clientes[j].nome);
+			printf("Saldo Final : %.2f \n", clientes[j].saldoFin);
+		}
+		
+	}
+	else
+	
+		if (opc == 'C' || opc == 'c')
+		{
+			printf("Idique o Valor que pretende Creditar : \n");
+			scanf("%f", &credito);
+
+			for (int k = 0; k < cli; k++)
+			{
+				printf("Indique a conta em que pretende efectuar o Crédito : \n");
+				scanf("%d", &codigo);
+
+				float saldoFin = clientes[k].depositoInc + clientes[k].debito;
+
+				printf("Titular da conta Nome : %s \n", clientes[k].nome);
+				printf("Saldo Final : %.2f \n", clientes[k].saldoFin);
+			}
+			
+		}
+
+	getch();
+}
